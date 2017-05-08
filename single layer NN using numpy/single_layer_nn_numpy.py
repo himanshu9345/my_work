@@ -5,18 +5,23 @@ class NeuralNetwork():
 		random.seed(1)
 		self.synaptic_weights=2*random.random((3,1))-1
 
-	def sigmoid(self,x):
+	def sigmoid(self,x): #activation function ,convet it to probability 
 		return 1/(1+exp(-x))
-	def __sigmoid_derivative(self,x):
-		return x*(1-x)		
+
+	def __sigmoid_derivative(self,x):#to caluate derivative of sigmoid or slope
+		return x*(1-x)	
+
 	def train(self,training_input,training_output,num_iterations):
 		for iteration in range(num_iterations):
-			output=self.predict(training_input)
-			error=training_output - output
+			output=self.predict(training_input) #passing the traing set through the network
+			error=training_output - output #findng error b/w predicted and actul output
+			##back propagation##
 			adjustment=dot(training_input.T,error*self.__sigmoid_derivative(output))
 			self.synaptic_weights+=adjustment
+			####################
+	
 	def predict(self,inputs):
-		return self.sigmoid(dot(inputs,self.synaptic_weights))	
+		return self.sigmoid(dot(inputs,self.synaptic_weights))	#getting the dot product of weight and inputs
 			
 
 
